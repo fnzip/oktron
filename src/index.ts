@@ -25,7 +25,7 @@ export class Tron extends JsonRpcProvider {
 
     // Subscribe to new block events
     this.on("block", async (number: BigNumberish) => {
-      console.log("block", number);
+      console.log("[I] block", number);
       await this._getTokens();
       await this._processBlock(await this._getBlock(toBeHex(number)));
     });
@@ -138,11 +138,11 @@ export class Tron extends JsonRpcProvider {
             )}&parse_mode=HTML`;
 
             throttledFetch(url)
-              .then((response) => console.log("Telegram status", response.statusText))
+              .then((response) => console.log("[I] telegram sent", "chat_id", row.tg_id, "hash", tx_data.hash.slice(0, 8), response.statusText))
               // .then((response) => response.json())
               // .then((data) => console.log(`Response: ${trx.hash}`, data))
-              .catch((error) =>
-                console.error(`Error fetching: ${trx.hash}`, error)
+              .catch((error: Error) =>
+                console.error(`[E] Error fetching: ${trx.hash}`, error.message)
               );
           });
         });
