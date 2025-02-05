@@ -1,0 +1,11 @@
+{{! expected props to receive }}
+{{#expect hash, amount, formattedAmount, token, from, to }}
+
+<a href="https://tronscan.org/#/transaction/{{{ hash }}}">💸 TRANSFER</a>
+
+<code>{{{ from.addressWithLabel }}} transferred {{{ formattedAmount }}} {{{ token.abbr }}} to {{{ to.addressWithLabel }}}</code>
+
+📝 <a href="https://tronscan.org/#/address/{{{ from.address58 }}}">{{{ from.addressWithLabel }}}</a> transferred {{{ formattedAmount }}} {{{ token.abbr }}} to <a href="https://tronscan.org/#/address/{{{ to.address58 }}}">{{{ to.addressWithLabel }}}</a>
+
+📝 ({{{ from.label ? from.label : to.label }}}) {{{ from.label ? from.address58Ellipsis : to.address58Ellipsis }}}:
+<a href="https://tronscan.org/#/token20/{{{ token.address58 }}}">{{{ token.abbr }}}</a>: {{{ from.label ? '-' : '+' }}}{{{ formattedAmount }}}
