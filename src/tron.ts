@@ -67,7 +67,7 @@ export class Tron extends JsonRpcProvider {
   }
 
   _extractTransactions(block: BlockParams): Transaction[] {
-    return block.transactions
+    return block?.transactions
       .filter((v) => typeof v === "object")
       .map((trx): Transaction => {
         const _t = trx as any;
@@ -77,7 +77,7 @@ export class Tron extends JsonRpcProvider {
           blockHash: block.hash,
           blockNumber: block.number,
         } as Transaction;
-      });
+      }) || [];
   }
 
   async _processTransactionsForRow(row: any, transactions: Transaction[], map_address: Map<string, number[]>): Promise<void> {
