@@ -7,7 +7,7 @@ const fetchQueue: Array<{
   reject: (reason?: any) => void;
 }> = [];
 let activeRequests = 0;
-const MAX_REQUESTS_PER_SECOND = 30;
+const MAX_REQUESTS_PER_SECOND = 15;
 const MAX_QUEUE_SIZE = 100; // Limit for the queue size
 const REQUEST_INTERVAL = 1000 / MAX_REQUESTS_PER_SECOND; // Interval in milliseconds
 const REQUEST_TIMEOUT = 5000; // Timeout for each request in milliseconds
