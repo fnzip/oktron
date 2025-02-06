@@ -1,7 +1,3 @@
-import { BASE_URL_MAINNET, Tron } from "./tracker";
-
-// const tron = new Tron(BASE_URL_MAINNET);
-
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 import process from "process";
@@ -36,5 +32,9 @@ const h: AppConfig = {
   port: APP_PORT,
   fetch: app.fetch,
 };
+
+// Enable graceful stop
+process.once("SIGINT", () => bot.stop("SIGINT"));
+process.once("SIGTERM", () => bot.stop("SIGTERM"));
 
 export default h;
