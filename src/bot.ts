@@ -67,8 +67,10 @@ bot.command("addresses", async (ctx) => {
 
   const message = result.rows
     .map(
-      (row) =>
-        `<a href="https://tronscan.org/#/address/${row.address}">🚀</a> <code>${row.address}</code>: ${row.label}`
+      (row) => {
+        const address = utils.address.fromHex("41" + row.address);
+        return `<a href="https://tronscan.org/#/address/${address}">🚀</a> <code>${address}</code>: ${row.label}`
+      }
     )
     .join("\n");
 
