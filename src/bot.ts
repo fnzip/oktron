@@ -37,7 +37,29 @@ bot.use(async (ctx, next) => {
   return next();
 });
 
-bot.start((ctx) => ctx.reply("Welcome"));
+bot.start((ctx) => {
+  const info = `Welcome to OkTron - Tron Wallet Monitoring!
+
+We are here to help you track your Tron wallet addresses efficiently.
+
+<b>Usage:</b>
+Please send your addresses in the following format:
+
+<b>Format:</b>
+<code>address1 name1
+address2 name2</code>
+
+<b>Example:</b>
+<code>TPuZHPS3b7ET8uFZuar8KEfqhJLLMXj19o MyWallet
+TLdqLbBQxc63v1NS4MdatjfjNSWc5URsA5 AnotherWallet</code>
+
+<b>Commands:</b>
+<blockquote>/addresses for see all watchlisted addresses</blockquote>
+
+<b>Disclaimer:</b>
+<blockquote>We only track addresses and are not responsible for your account security or any transactions. Please ensure you manage your credentials safely.</blockquote>`;
+  ctx.reply(info, { parse_mode: "HTML" });
+});
 
 bot.command("addresses", async (ctx) => {
   const userId = ctx.from.id;
@@ -66,12 +88,10 @@ bot.command("addresses", async (ctx) => {
   }
 
   const message = result.rows
-    .map(
-      (row) => {
-        const address = utils.address.fromHex("41" + row.address);
-        return `<a href="https://tronscan.org/#/address/${address}">🚀</a> <code>${address}</code>: ${row.label}`
-      }
-    )
+    .map((row) => {
+      const address = utils.address.fromHex("41" + row.address);
+      return `<a href="https://tronscan.org/#/address/${address}">🚀</a> <code>${address}</code>: ${row.label}`;
+    })
     .join("\n");
 
   ctx.reply("Your addresses:\n\n" + message, {
@@ -127,4 +147,4 @@ bot.on("text", async (ctx) => {
   );
 });
 
-export default bot
+export default bot;
