@@ -147,4 +147,8 @@ bot.on("text", async (ctx) => {
   );
 });
 
+bot.catch((err, ctx) => {
+  console.error(`Error for ${ctx.updateType}`, err);
+});
+
 export default bot;
