@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm";
 import { Telegraf } from "telegraf";
 import { db } from "./db";
 import { addresses, users } from "./db/schema";
+import { utils } from "tronweb";
 
 const bot = new Telegraf(process.env.TG_BOT_TOKEN!);
 
@@ -85,7 +86,8 @@ bot.on("text", async (ctx) => {
   const map = new Map<string, string>();
 
   for (const match of matches) {
-    if (match) map.set(match[1], match[2]);
+    const address = utils.address.toHex(match[1]).replace(/^41/, "");
+    if (match) map.set(address, match[2]);
   }
 
   if (map.size === 0) {
