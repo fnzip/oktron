@@ -17,6 +17,7 @@ export const BASE_URL_MAINNET = "https://api.trongrid.io/jsonrpc"; // mainnet
 export class Tron extends JsonRpcProvider {
   #tokens: Map<string, Token> = new Map<string, Token>();
   static MAX_TOKENS = 1000; // Limit the size of the tokens map
+  static TOKEN_CLEAR_INTERVAL = 60 * 60 * 1000; // Clear tokens every hour
 
   constructor(url?: string) {
     super(url);
@@ -26,6 +27,14 @@ export class Tron extends JsonRpcProvider {
 
     // Subscribe to new block events
     this.on("block", this._handleNewBlock.bind(this));
+
+    // Set interval to clear tokens
+    setInterval(this._clearTokens.bind(this), Tron.TOKEN_CLEAR_INTERVAL);
+  }
+
+  _clearTokens(): void {
+    console.log("[I] Clearing tokens map");
+    this.#tokens.clear();
   }
 
   async _handleNewBlock(number: BigNumberish): Promise<void> {
