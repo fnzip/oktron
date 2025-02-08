@@ -61,16 +61,3 @@ export function throttledFetch(
     processQueue(); // Start processing the queue
   });
 }
-
-// // Example usage
-// const urls: string[] = [
-//   "https://api.example.com/data/1",
-//   "https://api.example.com/data/2",
-//   // Add more URLs as needed
-// ];
-
-// urls.forEach((url) => {
-//   throttledFetch(url)
-//     .then((response) => console.log(`Fetched: ${url}`, response))
-//     .catch((error) => console.error(`Error fetching: ${url}`, error));
-// });
